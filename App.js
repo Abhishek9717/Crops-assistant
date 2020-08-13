@@ -21,7 +21,7 @@ const BOT_USER = {
 };
 
 
-const endpoint = "http://7e88afb2f004.ngrok.io";
+const endpoint = "https://2f3a7809407b.ngrok.io";
 
 class App extends Component{
   
@@ -43,7 +43,7 @@ class App extends Component{
     myHeaders.append("Accept", "application/json");
     myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({"MSG":message});
+    var raw = JSON.stringify({"query":message});
 
     var requestOptions = {
       method: 'POST',
@@ -97,11 +97,9 @@ class App extends Component{
   }
 
   handleResponse(result){
-  
-    // let text = result.queryResult.fulfillmentMessages[0].text.text[0];
+    let text = result.queryResult.fulfillmentMessages[0].text.text[0];
     // let payload = result.queryResult.webhookPayload;
     // this.showResponse(text,payload);
-    let text = result.Reply;
     this.showResponse(text);
   }
 
@@ -125,13 +123,14 @@ class App extends Component{
   }
 
   onSend(messages = []){
-    this.setState(previousState => ({
-      messages:GiftedChat.append(previousState.messages,messages),
-    }));
-
     let message = messages[0].text;
-    console.log(message)
-    this.fetchmsg(message);
+    if(message.trim()!=''){
+      this.setState(previousState => ({
+        messages:GiftedChat.append(previousState.messages,messages),
+      }));
+      console.log(message)
+      this.fetchmsg(message);
+    }
   }
   
   render(){
@@ -140,7 +139,11 @@ class App extends Component{
         <GiftedChat
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
-          user={{ _id: 1 }}
+          user={{ 
+            _id: 1,
+            name: 'User',
+            avatar: 'https://ui-avatars.com/api/?color=000&name=Us&rounded=true' 
+          }}
           placeholder='Type your message here...'
           showUserAvatar
           alwaysShowSend

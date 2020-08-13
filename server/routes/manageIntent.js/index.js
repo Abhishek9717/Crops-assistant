@@ -1,11 +1,16 @@
 const express = require('express')
 const router = express.Router();
+const dialogflow = require('@google-cloud/dialogflow')
+
+
 
 router.post('/create-intent',(req,res)=>{
-    if(res.statusCode == 200){
-        res.send(alert("Intent created successFully!!"));
-    }
     
+    
+})
+
+router.get('/list-all-intents',(req,res)=>{
+
 })
 
 router.delete('/delete-intent',(req,res)=>{

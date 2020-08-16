@@ -7,18 +7,29 @@ const uuid = require('uuid');
 
 const manageIntentRouter = require('./routes/manageIntent/index.js')
 const app = express();
+
+require('dotenv').config();
+
 const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(cors());
 
+const credentials = require('./credentials');
+// let private_value = process.env.PRIVATE_KEY.replace(/\\n/g, '\n');
+
+// const credentials = {
+//   client_email: process.env.CLIENT_EMAIL,
+//   private_key: private_value
+// }
+
 app.use('/api',manageIntentRouter);
 
 // A unique identifier for the given session
 const sessionId = uuid.v4();
 //projectId for given session
-const projectId = 'crops-cjed'; 
+const projectId = process.env.PROJECT_ID; 
 // queries: A set of sequential queries to be send to Dialogflow agent for Intent Detection
 const queryList = [
     'Reserve a meeting room in Toronto office, there will be 5 of us',
@@ -61,7 +72,8 @@ app.post('/send-multiple-msg',(req,res)=> {
 })
 
 const sessionClient = new dialogflow.SessionsClient({
-          keyFilename:"/home/abhishek/Desktop/chatbot/crops-cjed-9384268f8502.json"    
+          projectId,
+          credentials
   });
 
 async function detectIntent( projectId, sessionId, query, contexts, languageCode ) {

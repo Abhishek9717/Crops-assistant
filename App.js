@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
-  Text,
-  StatusBar,
-  ActivityIndicator,
-  KeyboardAvoidingView,
-  TouchableHighlight,
-  Dimensions,
+  
 } from 'react-native';
 
 import ChatScreen from './src/components/chatScreen'
 
-const endpoint = "http://b9be143bdc86.ngrok.io";
+const endpoint = "https://chatbot-server-me.herokuapp.com";
 
 class App extends Component{
   

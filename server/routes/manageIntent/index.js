@@ -2,13 +2,24 @@ const express = require('express')
 const router = express.Router();
 const dialogflow = require('@google-cloud/dialogflow')
 
-const projectId = 'crops-cjed';
+const credentials = require('../../credentials');
+
+// require('dotenv').config();
+
+// let private_value = process.env.PRIVATE_KEY.replace(/\\n/g, '\n');
+
+// const credentials = {
+//   client_email: process.env.CLIENT_EMAIL,
+//   private_key: private_value
+// }
+
+const projectId = process.env.PROJECT_ID;
 // const displayName = 'Make reservation'; //name of the intent
 // const trainingPhrasesParts = ['How many people are staying','This is another guest']; ///Training Phrases
 // const messageTexts = ['Your reservation has been confirmed','Welcome back again'];//Message Texts for the agents response when intent is detected'
 
 // Instantiates the Intent Client
-const intentsClient = new dialogflow.IntentsClient({ keyFilename:"/home/abhishek/Downloads/my-key.json" });
+const intentsClient = new dialogflow.IntentsClient({ projectId,credentials });
 
 router.post('/create-intent',(req,res)=>{
     let trainingPhrasesParts = req.body.trainingPhrases;

@@ -286,7 +286,7 @@ class ChatScreen extends Component{
   scrollToBottomComponent() {
     return (
       <View style={styles.bottomComponentContainer}>
-        <IconButton icon='chevron-double-down' size={36} color='#6646ee' />
+        <IconButton icon='chevron-double-down' size={20} color='#6646ee' />
       </View>
     );
   }
